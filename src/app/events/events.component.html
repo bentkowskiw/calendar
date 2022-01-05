@@ -1,0 +1,23 @@
+
+<h2>Events</h2>
+<table class="table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Complete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let ev of events">
+    <td>{{ev.id}}</td>
+    <td>{{ev.message}}</td>
+    <td>
+      <button class="btn btn-secondary" (click)="getEvent(ev)">
+        <i class="fa fa-check"></i>
+      </button>
+
+    </td>
+  </tr>
+  </tbody>
+</table>
