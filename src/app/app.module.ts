@@ -5,17 +5,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TilesComponent } from './tiles/tiles.component';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { GridListDynamic } from './tiles/tiles.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { EventsComponent } from './events/events.component';
 import { ConfigStepperComponent } from './config-stepper/config-stepper.component';
-import {MatStepperModule} from '@angular/material/stepper';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import{MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HeaderInterceptor } from './header-interceptor';
+
 
 
 
@@ -23,15 +25,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
-    TilesComponent,
-    GridListDynamic,
     LoginComponent,
     PageNotFoundComponent,
-    EventsComponent,
     ConfigStepperComponent,
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatGridListModule,
@@ -39,9 +39,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule
   ],
-  providers: [],
-  bootstrap: [AppComponent, GridListDynamic, TilesComponent, MatGridListModule,MatStepperModule,MatFormFieldModule,MatInputModule,ReactiveFormsModule,FormsModule]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeaderInterceptor,
+      multi: true
+    },
+  ],
+  bootstrap: [AppComponent, MatGridListModule, MatStepperModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatButtonModule]
 })
 export class AppModule { }
+
+export interface Response {
+  status: number,
+  message: string
+}

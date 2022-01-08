@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  gateway: "localhost:8080"
+  gateway: "http://localdev.com:8080"
 
 };

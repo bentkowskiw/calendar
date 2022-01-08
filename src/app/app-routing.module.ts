@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { TilesComponent } from './tiles/tiles.component';
 import { ConfigStepperComponent } from './config-stepper/config-stepper.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
