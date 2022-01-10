@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { LoginService } from '../login.service';
-import { Response } from '../app.module';
+import { RestApiService } from '../shared/rest-api.service';
 
 @Component({
   selector: 'app-login',
@@ -8,33 +9,18 @@ import { Response } from '../app.module';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  url: string = ""
 
+  url = ''
   constructor(private loginService: LoginService) { }
 
   ngOnInit(): void {
-    this.getLoginURL();
+    this.url = environment.gateway + '/login/'
+    this.login();
+    // this.loginService.doLogin();
   }
 
 
-
-  getLoginURL() {
-    // const observer() = {
-    //   next(value: Response) {
-    //     console.log("val: " + value.message);
-
-    //   },
-    //   error() {
-    //     console.log("error");
-    //   },
-    //   complete() {
-    //     console.log("complete");
-    //   }
-    // };
-    this.loginService.getLoginURL().subscribe((resp: Response) => {
-      this.url = resp.message
-    });
+  login(){
+    this.loginService.doLogin()
   }
-
 }
-

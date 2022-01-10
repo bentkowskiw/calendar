@@ -17,6 +17,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderInterceptor } from './header-interceptor';
+import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
+import { MatOptionModule } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+
+
 
 
 
@@ -38,9 +44,22 @@ import { HeaderInterceptor } from './header-interceptor';
     MatStepperModule,
     MatFormFieldModule,
     MatInputModule,
+    MatOptionModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatOptionModule,
+    MatSelectModule,
+    JwtModule.forRoot({
+      config: {
+        headerName: 'Authorization',
+        tokenGetter: function tokenGetter() {
+          return localStorage.getItem('accessToken');
+        },
+        allowedDomains: [environment.gateway],
+        disallowedRoutes: [environment.gateway + '/login/']
+      }
+    }),
   ],
   providers: [
     {
@@ -48,8 +67,9 @@ import { HeaderInterceptor } from './header-interceptor';
       useClass: HeaderInterceptor,
       multi: true
     },
+
   ],
-  bootstrap: [AppComponent, MatGridListModule, MatStepperModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatButtonModule]
+  bootstrap: [AppComponent, MatGridListModule, MatStepperModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatButtonModule,MatOptionModule,MatSelectModule]
 })
 export class AppModule { }
 
@@ -57,3 +77,11 @@ export interface Response {
   status: number,
   message: string
 }
+    // this.activatedRoute.queryParams.subscribe((params: Params) => {
+    //   const queryString = Object.entries(params)
+    //     .map(entry => entry.join('='))
+    //     .join('&');
+    //   if (queryString) {
+    //     this.url += `?${queryString}`;
+    //   }
+    // });

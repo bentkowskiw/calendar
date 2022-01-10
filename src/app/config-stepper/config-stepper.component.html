@@ -9,8 +9,10 @@
   <mat-step [stepControl]="firstFormGroup" label="Fill out your name">
     <form [formGroup]="firstFormGroup">
       <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+        <mat-label>Select</mat-label>
+        <mat-select formControlName="firstCtrl" required> 
+          <mat-option *ngFor="let cal of calendars?.items" [value]="cal.id">{{cal.description}}</mat-option>
+        </mat-select>
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
