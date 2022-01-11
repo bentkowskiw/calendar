@@ -20,17 +20,37 @@ import { CalendarList,CalendarListEntry } from '../shared/rest-api.service';
 })
 export class ConfigStepperComponent implements OnInit {
 
-   calendars:CalendarList
-  selectedCalendar:CalendarListEntry
+  selectedCalendar:CalendarListEntry = {} as CalendarListEntry
+  selectedNotification:notification={}as notification
+
+   calendars:CalendarList = {items:[{id:"1",description:"desc"} as CalendarListEntry,]} as CalendarList
+
+ 
+
+  notifications:notification[] = [
+    new notification("5m","5 minutes before"),
+    new notification("15m","15 minutes before"),
+    new notification("30m","30 minutes before"),
+    new notification("1h","1 hour before"),
+    new notification("2h","2 hours before"),
+    new notification("3h","3 hours before"),
+    new notification("6h","6 hours before"),
+    new notification("12h","12 hours before"),
+    new notification("1d","1 day before"),
+  ]
+
 
   firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
+    calendarsCtrl: ['', Validators.required],
   });
   secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
+    notificationCtrl: ['', Validators.required],
   });
   thirdFormGroup = this._formBuilder.group({
-    thirdCtrl: ['', Validators.required],
+    senderCtrl: ['', Validators.required],
+  });
+  submitFormGroup = this._formBuilder.group({
+    submitCtrl: ['',],
   });
   stepperOrientation: Observable<StepperOrientation>;
 
@@ -44,15 +64,15 @@ export class ConfigStepperComponent implements OnInit {
      this.api.calendars(this);
   }
 
-  changeFirst() {
-    let ctrl1 = this.firstFormGroup;
-    let ctrl2 = ctrl1.get('firstCtrl');
-    if (ctrl2){
-      ctrl2.setValue(this.calendars)
+}
 
-    }
+
+class notification {
+  key:string
+  value:string
+
+  constructor( key:string,  value:string){
+    this.key=key
+    this.value=value
   }
-
- 
-
 }

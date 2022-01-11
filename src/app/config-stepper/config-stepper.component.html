@@ -6,25 +6,28 @@
 <mat-stepper
   class="example-stepper"
   [orientation]="(stepperOrientation | async)!">
-  <mat-step [stepControl]="firstFormGroup" label="Fill out your name">
+  <mat-step [stepControl]="firstFormGroup" label="Choose your calendar">
     <form [formGroup]="firstFormGroup">
+      <div>
       <mat-form-field appearance="fill">
-        <mat-label>Select</mat-label>
-        <mat-select formControlName="firstCtrl" required> 
-          <mat-option *ngFor="let cal of calendars?.items" [value]="cal.id">{{cal.description}}</mat-option>
+        <mat-label>Select calendar</mat-label>
+        <mat-select formControlName="calendarsCtrl" required> 
+          <mat-option *ngFor="let cal of calendars?.items" [value]="cal">{{cal.description}}</mat-option>
         </mat-select>
       </mat-form-field>
+    </div>    
       <div>
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+  <mat-step [stepControl]="secondFormGroup" label="Notification details">
     <form [formGroup]="secondFormGroup">
       <mat-form-field appearance="fill">
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-               required>
+        <mat-label>Notification</mat-label>
+        <mat-select formControlName="notificationCtrl" required> 
+          <mat-option *ngFor="let notification of notifications" [value]="notification">{{notification.value}}</mat-option>
+        </mat-select>
       </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>Back</button>
@@ -32,20 +35,30 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="thirdFormGroup" label="Fill out your phone number">
+  <mat-step [stepControl]="thirdFormGroup" label="SMS details">
     <form [formGroup]="thirdFormGroup">
-      <mat-form-field appearance="fill">
-        <mat-label>Phone number</mat-label>
-        <input matInput formControlName="thirdCtrl" placeholder="Ex. 12345678" required>
-      </mat-form-field>
       <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Sender</mat-label>
+        <input matInput formControlName="senderCtrl" placeholder="your name" required>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Message details</mat-label>
+        <textarea matInput formControlName="messageCtrl" placeholder="message details" #input rows="7" maxlength="256" value="Your appointment with WRITE_YOUR_NAME is scheduled for %date% at %time%. Don't reply to this number. To reschedule call WRITE_YOUR_NUMBER_HERE." required></textarea>
+        <mat-hint align="end">{{input.value?.length || 0}}/256</mat-hint>
+        <mat-hint align="start">Available placeholders: %date%, %time%, %title%. Limited to 160 characters</mat-hint>
+      </mat-form-field>      
+    </div>
+      <div style="margin-top: 42px;">
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
+    <ng-template matStepLabel>Ready to go</ng-template>
     <p>You are now done.</p>
     <div>
       <button mat-button matStepperPrevious>Back</button>

@@ -21,6 +21,8 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { MatOptionModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
+import {MatCardModule} from '@angular/material/card';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 
 
@@ -50,6 +52,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatButtonModule,
     MatOptionModule,
     MatSelectModule,
+    MatCardModule,
     JwtModule.forRoot({
       config: {
         headerName: 'Authorization',
@@ -67,7 +70,10 @@ import {MatSelectModule} from '@angular/material/select';
       useClass: HeaderInterceptor,
       multi: true
     },
-
+      {
+        provide: STEPPER_GLOBAL_OPTIONS,
+        useValue: { showError: true }
+      },
   ],
   bootstrap: [AppComponent, MatGridListModule, MatStepperModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatButtonModule,MatOptionModule,MatSelectModule]
 })
@@ -77,11 +83,3 @@ export interface Response {
   status: number,
   message: string
 }
-    // this.activatedRoute.queryParams.subscribe((params: Params) => {
-    //   const queryString = Object.entries(params)
-    //     .map(entry => entry.join('='))
-    //     .join('&');
-    //   if (queryString) {
-    //     this.url += `?${queryString}`;
-    //   }
-    // });

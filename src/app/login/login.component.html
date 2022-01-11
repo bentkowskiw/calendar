@@ -1,11 +1,24 @@
-<section>
-  <div class="label">Be</div>
-  <div class="button-row">
-    <div class="flex-container">
-      <div class="button-container">
-        <a mat-flat-button href="{{url}}" target="_self" color="accent">Login</a>
 
+<mat-card>
+  <mat-card-title>Login to your google account</mat-card-title>
+  <mat-card-content>We need to get your consent to access your google calendar</mat-card-content>
+  <mat-card-actions> 
+    
+    <form method="post" action="{{url}}" target="_self" #loginForm=ngForm (ngSubmit)="submit()">
+
+
+    <div class="label">Be</div>
+    <div class="button-row">
+      <div class="flex-container">
+        <div class="button-container">
+          <button type="submit" mat-flat-button color="accent">Login</button>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
+</mat-card-actions>	
+</mat-card>
+
+<section>
+ 
 </section>

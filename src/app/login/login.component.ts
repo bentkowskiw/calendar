@@ -19,6 +19,9 @@ export class LoginComponent implements OnInit {
     // this.loginService.doLogin();
   }
 
+  submit(){
+    window.open(this.url)
+  }
 
   login(){
     this.loginService.doLogin()
