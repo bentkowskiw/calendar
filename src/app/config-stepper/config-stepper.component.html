@@ -35,7 +35,7 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="thirdFormGroup" label="SMS details">
+  <mat-step [stepControl]="thirdFormGroup" label="message details">
     <form [formGroup]="thirdFormGroup">
       <div>
       <mat-form-field appearance="fill">
@@ -57,11 +57,24 @@
       </div>
     </form>
   </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Ready to go</ng-template>
-    <p>You are now done.</p>
+  <mat-step [stepControl]="submitFormGroup" label="save data">
+    <form [formGroup]="submitFormGroup">
+
+      
+          <div class="label">Be</div>
+          <div class="button-row">
+            <div class="flex-container">
+              <div class="button-container">
+                <button type="submit" mat-flat-button color="accent">Submit data</button>
+              </div>
+            </div>
+          </div>
+       
+
+ 
     <div>
       <button mat-button matStepperPrevious>Back</button>
     </div>
+    </form>
   </mat-step>
 </mat-stepper>

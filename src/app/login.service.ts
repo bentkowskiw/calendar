@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Injectable, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService, AuthTokens } from './auth.service'
-import { RestApiService } from './shared/rest-api.service';
+import { RestApiService, loginSubscriber } from './shared/rest-api.service';
+import { User } from './shared/user-api';
 
 
 
@@ -10,46 +10,46 @@ import { RestApiService } from './shared/rest-api.service';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class LoginService implements OnInit {
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private auth: AuthService,private api:RestApiService) { }
+  user: User = {} as User
 
+  constructor(private router: Router, private auth: AuthService, private api: RestApiService) { }
 
-  doLogin() {
-    let value
-    this.getCookie('auth');
-    this.activeRoute.queryParams.subscribe(params => {
-      if (!params) {
-        return
-      }
-       value = params['tokens']
-      if (value) {
-        value = decodeURIComponent(value)
-        
-      }
-    });
-    // let tokStr = this.api.login()
-
-    if (value) {
-      let tokens = JSON.parse(value)
-      if (this.auth.authenticate(tokens)) {
-        this.router.navigate(['stepper'])
-      }
-    }
+  ngOnInit(): void {
 
   }
-  getCookie(name: string) {
-    let ca: Array<string> = document.cookie.split(';');
-    let cookieName = name + "=";
-    let c: string;
 
-    for (let i: number = 0; i < ca.length; i += 1) {
-      if (ca[i].indexOf(name, 0) > -1) {
-        c = ca[i].substring(cookieName.length + 1, ca[i].length);
-        console.log("valore cookie: " + c);
-        return c;
-      }
+
+  autoLogin(userSub: userSubscriber): void {
+
+    let sub = new subscriber(this.auth, this.router, userSub)
+    this.api.doAutoLogin(sub);
+
+  }
+
+  authorize() {
+    window.open("http://localhost:8080/login/", "_self")
+  }
+
+
+
+}
+
+interface userSubscriber {
+  user: User
+}
+
+
+class subscriber implements loginSubscriber {
+
+  constructor(private auth: AuthService, private router: Router, private userSub: userSubscriber) { }
+
+  authenticate(token: string, user: User) {
+    let success = this.auth.authenticate(token);
+    this.userSub.user = user;
+    if (success) {
+      this.router.navigate(['stepper'])
     }
-    return "";
   }
 }

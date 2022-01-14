@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { AfterContentInit, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 
@@ -23,6 +23,9 @@ import { MatOptionModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { AutologinComponent } from './autologin/autologin.component';
+import { HttpErrorInterceptor } from './error-interceptor';
+import { LoginService } from './login.service';
 
 
 
@@ -36,6 +39,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
     LoginComponent,
     PageNotFoundComponent,
     ConfigStepperComponent,
+    AutologinComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,16 +74,21 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
       useClass: HeaderInterceptor,
       multi: true
     },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: HttpErrorInterceptor,
+    //   multi: true
+    // },
       {
         provide: STEPPER_GLOBAL_OPTIONS,
         useValue: { showError: true }
       },
   ],
-  bootstrap: [AppComponent, MatGridListModule, MatStepperModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatButtonModule,MatOptionModule,MatSelectModule]
+  bootstrap: [AppComponent, MatGridListModule, MatStepperModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatButtonModule,MatOptionModule,MatSelectModule,AutologinComponent]
 })
-export class AppModule { }
+export class AppModule  { 
 
-export interface Response {
-  status: number,
-  message: string
+
 }
+
+

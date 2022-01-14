@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit } from '@angular/core';
+
 
 
 @Component({
@@ -6,12 +7,15 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css', ]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterContentInit {
   title = 'calendar';
 
-  constructor() {
+  constructor(){}
 
-  }
-  ngOnInit(): void {
-  }
+  ngAfterContentInit(): void {
+      
+      
+    }
+
+
 }

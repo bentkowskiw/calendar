@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { LoginService } from '../login.service';
-import { RestApiService } from '../shared/rest-api.service';
-
+import { User } from '../shared/user-api';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,19 +11,22 @@ import { RestApiService } from '../shared/rest-api.service';
 export class LoginComponent implements OnInit {
 
   url = ''
-  constructor(private loginService: LoginService) { }
+  user:User
+
+  loginFormGroup = this._formBuilder.group({
+    loginForm: ['', Validators.required],
+  });
+
+
+  constructor(private _formBuilder: FormBuilder,private login:LoginService) { }
 
   ngOnInit(): void {
     this.url = environment.gateway + '/login/'
-    this.login();
-    // this.loginService.doLogin();
+
   }
 
-  submit(){
-    window.open(this.url)
-  }
+onSubmit(){
+ this.login.autoLogin(this)
+}
 
-  login(){
-    this.loginService.doLogin()
-  }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { LocalStorageService } from './local-storage.service';
+import { Buffer } from 'buffer';
 
 export interface AuthTokens {
   accessToken: string
@@ -21,13 +22,12 @@ export class AuthService {
   public isAuthenticated(): boolean {
     const token = this.store.getToken()
     // Check whether the token is expired and return
-    // true or false
-    if (1==1){
-      return true
-    }
     return this.validateToken(token)
   }
-  public authenticate(tokens: AuthTokens) {
+
+  public authenticate(tokenStr:string) {
+    var tokens:AuthTokens
+    tokens = JSON.parse( Buffer.from(tokenStr, 'base64').toString())
     if (this.validateToken(tokens.accessToken)) {
       this.store.setTokens(tokens)
       return true
@@ -39,10 +39,10 @@ export class AuthService {
     if (tokenStr == null) {
       return false
     }
-    
     // let token = this.helper.decodeToken(tokenStr)
     return !this.helper.isTokenExpired(tokenStr);
   }
+  
 }
 
 
