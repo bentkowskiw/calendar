@@ -20,10 +20,15 @@ import { HeaderInterceptor } from './header-interceptor';
 import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { MatOptionModule } from '@angular/material/core';
-import {MatSelectModule} from '@angular/material/select';
-import {MatCardModule} from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import{MatDialogModule} from '@angular/material/dialog';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { AutologinComponent } from './autologin/autologin.component';
+import { ServicesComponent,ServicesDialogComponent } from './services/services.component';
 import { HttpErrorInterceptor } from './error-interceptor';
 import { LoginService } from './login.service';
 
@@ -39,7 +44,8 @@ import { LoginService } from './login.service';
     LoginComponent,
     PageNotFoundComponent,
     ConfigStepperComponent,
-    AutologinComponent,
+    ServicesComponent,
+    ServicesDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +63,11 @@ import { LoginService } from './login.service';
     MatOptionModule,
     MatSelectModule,
     MatCardModule,
+    MatToolbarModule,
+    MatExpansionModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatDialogModule,
     JwtModule.forRoot({
       config: {
         headerName: 'Authorization',
@@ -79,14 +90,14 @@ import { LoginService } from './login.service';
     //   useClass: HttpErrorInterceptor,
     //   multi: true
     // },
-      {
-        provide: STEPPER_GLOBAL_OPTIONS,
-        useValue: { showError: true }
-      },
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { showError: true }
+    },
   ],
-  bootstrap: [AppComponent, MatGridListModule, MatStepperModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatButtonModule,MatOptionModule,MatSelectModule,AutologinComponent]
+  bootstrap: [AppComponent, MatGridListModule, MatStepperModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatOptionModule, MatSelectModule, MatToolbarModule, MatExpansionModule, MatIconModule,MatSidenavModule,MatDialogModule]
 })
-export class AppModule  { 
+export class AppModule {
 
 
 }

@@ -1,0 +1,15 @@
+<mat-card>
+    <mat-card-title>Google authorization</mat-card-title>
+    <mat-card-subtitle>Imie:{{data.firstName}}</mat-card-subtitle>
+    <mat-card-content>scopes:
+
+    </mat-card-content>
+    <mat-card-actions>
+        <div class="button-container">
+            <button mat-mini-fab color="warn" aria-label="deauthorize" (click)="deauth()">
+                <mat-icon>delete</mat-icon><span class="button-text">DEAUTHORIZE</span>
+            </button>
+        </div>
+    </mat-card-actions>
+
+</mat-card>

@@ -1,0 +1,14 @@
+<mat-toolbar>
+    <div *ngIf="login.isAuthorized(); else elseBlock">
+        <button mat-mini-fab color="accent" (click)="openDialog()">
+            <mat-icon>account_circle</mat-icon><span class="button-text">You are logged in</span>
+        </button>
+    </div>
+    <ng-template #elseBlock>
+        <button mat-mini-fab color="accent" disabled>
+            <mat-icon>account_circle</mat-icon><span class="button-text">You have been looged out</span>
+        </button>
+    </ng-template>
+
+
+</mat-toolbar>

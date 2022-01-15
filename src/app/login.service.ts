@@ -21,9 +21,9 @@ export class LoginService implements OnInit {
   }
 
 
-  autoLogin(userSub: userSubscriber): void {
+  autoLogin(): void {
 
-    let sub = new subscriber(this.auth, this.router, userSub)
+    let sub = new subscriber(this.auth, this.router, this)
     this.api.doAutoLogin(sub);
 
   }
@@ -32,7 +32,9 @@ export class LoginService implements OnInit {
     window.open("http://localhost:8080/login/", "_self")
   }
 
-
+  isAuthorized():boolean{
+    return this.auth.isAuthenticated()
+  }
 
 }
 
@@ -43,7 +45,7 @@ interface userSubscriber {
 
 class subscriber implements loginSubscriber {
 
-  constructor(private auth: AuthService, private router: Router, private userSub: userSubscriber) { }
+  constructor(private auth: AuthService, private router: Router,private userSub:userSubscriber) { }
 
   authenticate(token: string, user: User) {
     let success = this.auth.authenticate(token);
@@ -52,4 +54,6 @@ class subscriber implements loginSubscriber {
       this.router.navigate(['stepper'])
     }
   }
+
+
 }

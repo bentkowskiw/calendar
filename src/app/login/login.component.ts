@@ -11,7 +11,7 @@ import { User } from '../shared/user-api';
 export class LoginComponent implements OnInit {
 
   url = ''
-  user:User
+ 
 
   loginFormGroup = this._formBuilder.group({
     loginForm: ['', Validators.required],
@@ -22,11 +22,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.url = environment.gateway + '/login/'
-
+    this.login.autoLogin()
   }
 
-onSubmit(){
- this.login.autoLogin(this)
-}
+
 
 }
