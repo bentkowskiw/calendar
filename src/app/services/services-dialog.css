@@ -11,6 +11,12 @@ button{
 } 
 
 .button-text{
-    color:#f44336;
     padding-left: 20px;
+}
+
+.warn{
+    color:#f44336;
+}
+.accent{
+    color:#ff4081;
 }

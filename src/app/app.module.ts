@@ -26,9 +26,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import{MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { ServicesComponent,ServicesDialogComponent } from './services/services.component';
+import { ServicesComponent, ServicesDialogComponent } from './services/services.component';
 import { HttpErrorInterceptor } from './error-interceptor';
 import { LoginService } from './login.service';
 
@@ -68,6 +70,8 @@ import { LoginService } from './login.service';
     MatIconModule,
     MatSidenavModule,
     MatDialogModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
     JwtModule.forRoot({
       config: {
         headerName: 'Authorization',
@@ -94,8 +98,9 @@ import { LoginService } from './login.service';
       provide: STEPPER_GLOBAL_OPTIONS,
       useValue: { showError: true }
     },
+
   ],
-  bootstrap: [AppComponent, MatGridListModule, MatStepperModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatOptionModule, MatSelectModule, MatToolbarModule, MatExpansionModule, MatIconModule,MatSidenavModule,MatDialogModule]
+  bootstrap: [AppComponent, MatGridListModule, MatStepperModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatOptionModule, MatSelectModule, MatToolbarModule, MatExpansionModule, MatIconModule, MatSidenavModule, MatDialogModule, MatSlideToggleModule,MatSnackBarModule]
 })
 export class AppModule {
 

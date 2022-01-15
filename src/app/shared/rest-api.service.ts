@@ -30,9 +30,29 @@ export class RestApiService {
   doAutoLogin(s: loginSubscriber) {
 
     this.client
-      .post<Response>(environment.gateway + '/autologin/', '',{ withCredentials:true, observe: 'body', responseType: 'json' })
+      .post<Response>(environment.gateway + '/autologin/', '', { withCredentials: true, observe: 'body', responseType: 'json' })
       .subscribe(r => {
         s.authenticate(r.message.token, r.message.user);
+      })
+
+  }
+
+  // HttpClient API get()
+  doLogout(s: logoutSubscriber) {
+    this.client
+      .delete<Response>(environment.gateway + '/autologin/', { withCredentials: true, observe: 'body', responseType: 'json' })
+      .subscribe(r => {
+        s.deauthenticate();
+      })
+
+  }
+
+  // HttpClient API get()
+  doDeauthorize(s: logoutSubscriber) {
+    this.client
+      .delete<Response>(environment.gateway + '/oauth/', { withCredentials: true, observe: 'body', responseType: 'json' })
+      .subscribe(r => {
+        s.deauthenticate();
       })
 
   }
@@ -73,6 +93,10 @@ interface Response {
 
 export interface loginSubscriber {
   authenticate(token: string, user: User): void;
+}
+
+export interface logoutSubscriber {
+  deauthenticate(): void;
 }
 
 

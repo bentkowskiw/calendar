@@ -1,14 +1,38 @@
 <mat-card>
     <mat-card-title>Google authorization</mat-card-title>
     <mat-card-subtitle>Imie:{{data.firstName}}</mat-card-subtitle>
+    <mat-card-subtitle>Nazwisko:{{data.lastName}}</mat-card-subtitle>
+
     <mat-card-content>scopes:
 
     </mat-card-content>
     <mat-card-actions>
-        <div class="button-container">
-            <button mat-mini-fab color="warn" aria-label="deauthorize" (click)="deauth()">
-                <mat-icon>delete</mat-icon><span class="button-text">DEAUTHORIZE</span>
-            </button>
+        <div *ngIf="!isChecked; else elseBlock">
+            <div class="button-container">
+                <button mat-mini-fab color="accent" aria-label="logout" [mat-dialog-close]=closeVal>
+                    <mat-icon>logout</mat-icon><span class="button-text accent">Logout</span>
+                </button>
+            </div>
+        </div>
+        <ng-template #elseBlock>
+            <div class="button-container">
+                <button mat-mini-fab color="warn" aria-label="deauthorize" [mat-dialog-close]=closeVal>
+                    <mat-icon>delete</mat-icon><span class="button-text warn">deauthorize</span>
+                </button>
+            </div>
+        </ng-template>
+
+
+ 
+        <p><br></p>
+        <div>
+            <div>
+                <mat-slide-toggle color="warn" aria-label="Deauthorize permanently" [(ngModel)]="isChecked"
+                    (toggleChange)="toggle()">Deauthorize permanently</mat-slide-toggle>
+                
+                <div>By selecting this option, all your granted authorization will be recalled, and your personal data
+                    will be deleted!</div>
+            </div>
         </div>
     </mat-card-actions>
 

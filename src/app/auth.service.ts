@@ -25,6 +25,12 @@ export class AuthService {
     return this.validateToken(token)
   }
 
+public logout(){
+  this.store.clearAllLocalStorage()
+}
+
+
+
   public authenticate(tokenStr:string) {
     var tokens:AuthTokens
     tokens = JSON.parse( Buffer.from(tokenStr, 'base64').toString())
