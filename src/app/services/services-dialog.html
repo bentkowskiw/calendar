@@ -1,37 +1,66 @@
 <mat-card>
     <mat-card-title>Google authorization</mat-card-title>
-    <mat-card-subtitle>Imie:{{data.firstName}}</mat-card-subtitle>
-    <mat-card-subtitle>Nazwisko:{{data.lastName}}</mat-card-subtitle>
+    <mat-card-subtitle>
+       
+      {{data.name}} {{data.email}}
+ 
 
-    <mat-card-content>scopes:
+    </mat-card-subtitle>
+    <mat-card-content>authorized scopes:
+        <table mat-table [dataSource]="dataSource" >
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Key Column -->
+            <ng-container matColumnDef="key">
+                <th mat-header-cell *matHeaderCellDef> Scope&nbsp; </th>
+                <td mat-cell *matCellDef="let element"> {{element.key}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef>  Description </th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
 
     </mat-card-content>
     <mat-card-actions>
         <div *ngIf="!isChecked; else elseBlock">
             <div class="button-container">
-                <button mat-mini-fab color="accent" aria-label="logout" [mat-dialog-close]=closeVal>
+                <button mat-mini-fab color="accent" aria-label="Logout" [mat-dialog-close]=closeVal>
                     <mat-icon>logout</mat-icon><span class="button-text accent">Logout</span>
                 </button>
             </div>
         </div>
         <ng-template #elseBlock>
             <div class="button-container">
-                <button mat-mini-fab color="warn" aria-label="deauthorize" [mat-dialog-close]=closeVal>
-                    <mat-icon>delete</mat-icon><span class="button-text warn">deauthorize</span>
+                <button mat-mini-fab color="warn" aria-label="Deauthorize" [mat-dialog-close]=closeVal>
+                    <mat-icon>delete</mat-icon><span class="button-text warn">Deauthorize</span>
                 </button>
             </div>
         </ng-template>
 
 
- 
+
         <p><br></p>
         <div>
             <div>
                 <mat-slide-toggle color="warn" aria-label="Deauthorize permanently" [(ngModel)]="isChecked"
                     (toggleChange)="toggle()">Deauthorize permanently</mat-slide-toggle>
-                
-                <div>By selecting this option, all your granted authorization will be recalled, and your personal data
-                    will be deleted!</div>
+
+                <div>
+                    <p>
+                        By selecting this option, all your granted authorization will be recalled, and your personal
+                        data
+                        will be deleted!
+                    </p>
+                </div>
             </div>
         </div>
     </mat-card-actions>

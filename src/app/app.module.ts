@@ -29,6 +29,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { ServicesComponent, ServicesDialogComponent } from './services/services.component';
 import { HttpErrorInterceptor } from './error-interceptor';
@@ -72,6 +73,7 @@ import { LoginService } from './login.service';
     MatDialogModule,
     MatSlideToggleModule,
     MatSnackBarModule,
+    MatTableModule,
     JwtModule.forRoot({
       config: {
         headerName: 'Authorization',
@@ -100,7 +102,25 @@ import { LoginService } from './login.service';
     },
 
   ],
-  bootstrap: [AppComponent, MatGridListModule, MatStepperModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatOptionModule, MatSelectModule, MatToolbarModule, MatExpansionModule, MatIconModule, MatSidenavModule, MatDialogModule, MatSlideToggleModule,MatSnackBarModule]
+  bootstrap: [
+    AppComponent,
+    MatGridListModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatButtonModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatToolbarModule,
+    MatExpansionModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatDialogModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+  ]
 })
 export class AppModule {
 

@@ -1,8 +1,8 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { LoginService } from '../login.service';
 import { User } from '../shared/user-api';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {MAT_SNACK_BAR_DATA,MatSnackBar} from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_SNACK_BAR_DATA, MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -12,31 +12,31 @@ import {MAT_SNACK_BAR_DATA,MatSnackBar} from '@angular/material/snack-bar';
 })
 export class ServicesComponent implements OnInit {
   showFiller: boolean = false
-
-  constructor(public login: LoginService, private dialog: MatDialog,private _snackBar: MatSnackBar) { }
+  constructor(public login: LoginService, private dialog: MatDialog, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
   openDialog() {
-    const dialogRef= this.dialog.open(ServicesDialogComponent,{data:this.login.user});
+    const dialogRef = this.dialog.open(ServicesDialogComponent, { data: this.login.user });
 
     dialogRef.afterClosed().subscribe(result => {
-      
-      if(result===1){
+
+      if (result === 1) {
         this.login.logout()
-        
-      } else if(result===2){
-        let snackBarRef = this._snackBar.open('If you deauthorize, we will no longer be able to send you notifications. Please confirm you want to deauthorize permanently!', 'Confirm',{duration:3000});
+
+      } else if (result === 2) {
+        let snackBarRef = this._snackBar.open('If you deauthorize, we will no longer be able to send you notifications. Please confirm you want to deauthorize permanently!', 'Confirm', { duration: 3000 });
         snackBarRef.onAction().subscribe(() => {
           this.login.deauthorize();
         });
-        
-        
+
+
       }
-      
+
     });
   }
 }
+
 
 
 @Component({
@@ -46,22 +46,37 @@ export class ServicesComponent implements OnInit {
 })
 export class ServicesDialogComponent {
 
-  isChecked=false
-  closeVal=this.getCloseVal()
+  isChecked = false
+  closeVal = this.getCloseVal()
+
+
+  displayedColumns: string[] = ['key', 'description'];
+  dataSource:scope[] = [
+    { key: "123", description: "refv" },
+  ]
+
+
 
   constructor(public dialogRef: MatDialogRef<ServicesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: User,
-    ) {}
+  ) { }
 
-    toggle(){
-      this.isChecked=!this.isChecked
-      this.closeVal=this.getCloseVal()
-    }
+  toggle() {
+    this.isChecked = !this.isChecked
+    this.closeVal = this.getCloseVal()
+  }
 
-    private getCloseVal():number{
-      if (this.isChecked) return 2
-      return 1
-    }
+  private getCloseVal(): number {
+    if (this.isChecked) return 2
+    return 1
+  }
+}
+
+
+
+export interface scope {
+  key: string;
+  description: string
 }
 
 
@@ -72,4 +87,6 @@ export class ServicesDialogComponent {
 export class MessageArchivedComponent {
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: string) { }
 }
+
+
 

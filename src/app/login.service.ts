@@ -28,9 +28,7 @@ export class LoginService implements OnInit {
 
   }
 
-  authorize() {
-    window.open("http://localhost:8080/login/", "_self")
-  }
+
 
   // deauthorize calls deathorize on REST and calls callbuck function logout
   deauthorize() {

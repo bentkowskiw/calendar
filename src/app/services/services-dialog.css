@@ -6,6 +6,11 @@ button{
 
 }
 
+.button-container{
+    padding-top:20px;
+    padding-bottom:20px;
+}
+
 .mat-icon{
     width: 20px;
 } 
@@ -20,3 +25,4 @@ button{
 .accent{
     color:#ff4081;
 }
+

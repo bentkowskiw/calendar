@@ -20,7 +20,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 catchError((error: HttpErrorResponse) => {
                     let message = '';
                     if (error.status==HttpStatusCode.Unauthorized){
-                        this.login.authorize()
                         return throwError(() => new Error(''));
                     }
                     if (error.error instanceof ErrorEvent) {
