@@ -1,11 +1,11 @@
 {
     "/login/": {
-        "target": "http://localdev.com:8080",
+        "target": "https://bentkowski.io:8080",
         "secure": false,
         "logLevel": "debug"
     },
     "/autologin/": {
-        "target": "http://localdev.com:8080",
+        "target": "https://bentkowski.io:8080",
         "secure": false,
         "logLevel": "debug"
     }
