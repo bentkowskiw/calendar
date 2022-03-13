@@ -4,10 +4,20 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { StepperOrientation } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { RestApiService } from '../shared/rest-api.service';
+import { RestApiService, userConfiger } from '../shared/rest-api.service';
 import { CalendarList, CalendarListEntry } from '../shared/calendar-api';
+import { NotificationMessage, UserConfig } from '../shared/user-config';
 
 
+class country {
+  key: string
+  value: string
+
+  constructor(key: string, value: string) {
+    this.key = key
+    this.value = value
+  }
+}
 class notification {
   key: string
   value: string
@@ -31,9 +41,12 @@ export class ConfigStepperComponent implements OnInit {
 
   selectedCalendar: CalendarListEntry = {} as CalendarListEntry
   selectedNotification: notification = {} as notification
+  selectedCountry: country = {} as country
 
   calendars: CalendarList = {} as CalendarList
-  notifications: notification[] 
+  notifications: notification[]
+  countries: country[]
+
 
 
   firstFormGroup = this._formBuilder.group({
@@ -44,8 +57,10 @@ export class ConfigStepperComponent implements OnInit {
   });
   thirdFormGroup = this._formBuilder.group({
     senderCtrl: ['', Validators.required],
+    messageCtrl: ['', Validators.required],
   });
   submitFormGroup = this._formBuilder.group({
+    countryCtrl: ['', Validators.required],
     submitCtrl: ['',],
   });
   stepperOrientation: Observable<StepperOrientation>;
@@ -55,7 +70,7 @@ export class ConfigStepperComponent implements OnInit {
       .observe('(min-width: 800px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
 
-    this.notifications= [
+    this.notifications = [
       new notification("5m", "5 minutes before"),
       new notification("15m", "15 minutes before"),
       new notification("30m", "30 minutes before"),
@@ -66,13 +81,38 @@ export class ConfigStepperComponent implements OnInit {
       new notification("12h", "12 hours before"),
       new notification("1d", "1 day before"),
     ]
+
+    this.countries = [
+      new country("pl", "Polska"),
+    ]
+
   }
+
+
 
   ngOnInit(): void {
     this.api.doCalendars(this)
   }
 
-  submit() { }
+  subscribe() {
+
+
+
+    const conf = {
+      done: function (): void { alert("done") },
+      config: {
+        calendarID: this.selectedCalendar.id,
+        message: {
+          sender: this.thirdFormGroup.get("senderCtrl")?.value,
+          content: this.thirdFormGroup.get("messageCtrl")?.value,
+        } as NotificationMessage,
+        country: this.selectedCountry.key,
+        notification: this.selectedNotification.key,
+      } as UserConfig,
+    } as userConfiger
+
+    this.api.doSubscribe(conf)
+  }
 
 }
 

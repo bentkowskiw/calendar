@@ -4,6 +4,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { throwError } from 'rxjs';
 import { CalendarList } from './calendar-api';
+import { UserConfig } from './user-config';
 import { User } from './user-api';
 
 
@@ -66,6 +67,13 @@ export class RestApiService {
   }
 
 
+  doSubscribe(c: userConfiger): void {
+    this.client.put<Response>(environment.gateway + '/api/subscribe/',c.config).subscribe(
+      (r => {
+        c.done()
+      })
+    );
+  }
 
 
 
@@ -102,5 +110,10 @@ export interface logoutSubscriber {
 
 export interface calendarSubscriber {
   calendars: CalendarList
+}
+
+export interface userConfiger {
+  config: UserConfig
+  done(): void;
 }
 

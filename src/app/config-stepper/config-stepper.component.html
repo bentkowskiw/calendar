@@ -3,19 +3,17 @@
   <div *ngSwitchCase="'vertical'">Make your screen larger to see a horizontal stepper</div>
 </ng-container>
 
-<mat-stepper
-  class="example-stepper"
-  [orientation]="(stepperOrientation | async)!">
+<mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!">
   <mat-step [stepControl]="firstFormGroup" label="Choose your calendar">
     <form [formGroup]="firstFormGroup">
       <div>
-      <mat-form-field appearance="fill">
-        <mat-label>Select calendar</mat-label>
-        <mat-select formControlName="calendarsCtrl" required> 
-          <mat-option *ngFor="let cal of calendars?.items" [value]="cal">{{cal.description}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>    
+        <mat-form-field appearance="fill">
+          <mat-label>Select calendar</mat-label>
+          <mat-select formControlName="calendarsCtrl" required>
+            <mat-option *ngFor="let cal of calendars?.items" [value]="cal">{{cal.description}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
       <div>
         <button mat-button matStepperNext>Next</button>
       </div>
@@ -25,8 +23,9 @@
     <form [formGroup]="secondFormGroup">
       <mat-form-field appearance="fill">
         <mat-label>Notification</mat-label>
-        <mat-select formControlName="notificationCtrl" required> 
-          <mat-option *ngFor="let notification of notifications" [value]="notification">{{notification.value}}</mat-option>
+        <mat-select formControlName="notificationCtrl" required>
+          <mat-option *ngFor="let notification of notifications" [value]="notification">{{notification.value}}
+          </mat-option>
         </mat-select>
       </mat-form-field>
       <div>
@@ -38,19 +37,21 @@
   <mat-step [stepControl]="thirdFormGroup" label="message details">
     <form [formGroup]="thirdFormGroup">
       <div>
-      <mat-form-field appearance="fill">
-        <mat-label>Sender</mat-label>
-        <input matInput formControlName="senderCtrl" placeholder="your name" required>
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field appearance="fill">
-        <mat-label>Message details</mat-label>
-        <textarea matInput formControlName="messageCtrl" placeholder="message details" #input rows="7" maxlength="256" value="Your appointment with WRITE_YOUR_NAME is scheduled for %date% at %time%. Don't reply to this number. To reschedule call WRITE_YOUR_NUMBER_HERE." required></textarea>
-        <mat-hint align="end">{{input.value?.length || 0}}/256</mat-hint>
-        <mat-hint align="start">Available placeholders: %date%, %time%, %title%. Limited to 160 characters</mat-hint>
-      </mat-form-field>      
-    </div>
+        <mat-form-field appearance="fill">
+          <mat-label>Sender</mat-label>
+          <input matInput formControlName="senderCtrl" placeholder="your name" required>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Message details</mat-label>
+          <textarea matInput formControlName="messageCtrl" placeholder="message details" #input rows="7" maxlength="256"
+            value="Your appointment with WRITE_YOUR_NAME is scheduled for %date% at %time%. Don't reply to this number. To reschedule call WRITE_YOUR_NUMBER_HERE."
+            required></textarea>
+          <mat-hint align="end">{{input.value?.length || 0}}/256</mat-hint>
+          <mat-hint align="start">Available placeholders: %date%, %time%, %title%. Limited to 160 characters</mat-hint>
+        </mat-form-field>
+      </div>
       <div style="margin-top: 42px;">
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
@@ -60,21 +61,26 @@
   <mat-step [stepControl]="submitFormGroup" label="save data">
     <form [formGroup]="submitFormGroup">
 
-      
-          <div class="label">Be</div>
-          <div class="button-row">
-            <div class="flex-container">
-              <div class="button-container">
-                <button type="submit" mat-flat-button color="accent">Submit data</button>
-              </div>
-            </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Your country</mat-label>
+        <mat-select formControlName="countryCtrl" required>
+          <mat-option *ngFor="let country of countries" [value]="country">{{country.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="button-row">
+        <div class="flex-container">
+          <div class="button-container">
+            <button type="submit" mat-flat-button color="accent" (click)="subscribe()">Submit data</button>
           </div>
-       
+        </div>
+      </div>
 
- 
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-    </div>
+
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+      </div>
     </form>
   </mat-step>
 </mat-stepper>
