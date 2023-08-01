@@ -18,7 +18,7 @@ class country {
     this.value = value
   }
 }
-class notification {
+class advance {
   key: string
   value: string
 
@@ -40,11 +40,11 @@ export class ConfigStepperComponent implements OnInit {
 
 
   selectedCalendar: CalendarListEntry = {} as CalendarListEntry
-  selectedNotification: notification = {} as notification
+  selectedAdvance: advance = {} as advance
   selectedCountry: country = {} as country
 
   calendars: CalendarList = {} as CalendarList
-  notifications: notification[]
+  advances: advance[]
   countries: country[]
 
 
@@ -53,7 +53,7 @@ export class ConfigStepperComponent implements OnInit {
     calendarsCtrl: ['', Validators.required],
   });
   secondFormGroup = this._formBuilder.group({
-    notificationCtrl: ['', Validators.required],
+    advanceCtrl: ['', Validators.required],
   });
   thirdFormGroup = this._formBuilder.group({
     senderCtrl: ['', Validators.required],
@@ -70,16 +70,16 @@ export class ConfigStepperComponent implements OnInit {
       .observe('(min-width: 800px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
 
-    this.notifications = [
-      new notification("5m", "5 minutes before"),
-      new notification("15m", "15 minutes before"),
-      new notification("30m", "30 minutes before"),
-      new notification("1h", "1 hour before"),
-      new notification("2h", "2 hours before"),
-      new notification("3h", "3 hours before"),
-      new notification("6h", "6 hours before"),
-      new notification("12h", "12 hours before"),
-      new notification("1d", "1 day before"),
+    this.advances = [
+      new advance("5m", "5 minutes before"),
+      new advance("15m", "15 minutes before"),
+      new advance("30m", "30 minutes before"),
+      new advance("1h", "1 hour before"),
+      new advance("2h", "2 hours before"),
+      new advance("3h", "3 hours before"),
+      new advance("6h", "6 hours before"),
+      new advance("12h", "12 hours before"),
+      new advance("1d", "1 day before"),
     ]
 
     this.countries = [
@@ -96,8 +96,6 @@ export class ConfigStepperComponent implements OnInit {
 
   subscribe() {
 
-
-
     const conf = {
       done: function (): void { alert("done") },
       config: {
@@ -107,7 +105,7 @@ export class ConfigStepperComponent implements OnInit {
           content: this.thirdFormGroup.get("messageCtrl")?.value,
         } as NotificationMessage,
         country: this.selectedCountry.key,
-        notification: this.selectedNotification.key,
+        advance: this.selectedAdvance.key,
       } as UserConfig,
     } as userConfiger
 

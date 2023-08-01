@@ -2,7 +2,7 @@ export interface UserConfig {
     calendarID: string
     message: NotificationMessage
     country: string
-    notification: string
+    advance: string
 }
 
 export interface NotificationMessage {

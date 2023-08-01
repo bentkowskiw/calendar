@@ -22,9 +22,9 @@
   <mat-step [stepControl]="secondFormGroup" label="Notification details">
     <form [formGroup]="secondFormGroup">
       <mat-form-field appearance="fill">
-        <mat-label>Notification</mat-label>
-        <mat-select formControlName="notificationCtrl" required>
-          <mat-option *ngFor="let notification of notifications" [value]="notification">{{notification.value}}
+        <mat-label>Advance</mat-label>
+        <mat-select formControlName="advanceCtrl" required>
+          <mat-option *ngFor="let advance of advances" [value]="advance">{{advance.value}}
           </mat-option>
         </mat-select>
       </mat-form-field>
